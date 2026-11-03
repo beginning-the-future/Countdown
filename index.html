@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#050813">
+  <meta name="description" content="TIME — A cinematic countdown experience. Your moments, your universe.">
+  <title>TIME — Every Second Matters</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%23050913'/%3E%3Cpath d='M13 18h38M32 18v29' stroke='%237deaff' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <noscript><div class="noscript">TIME requires JavaScript for live countdowns. Please enable it in your browser.</div></noscript>
+  <div id="loader" class="loader" aria-label="Loading TIME" aria-live="polite">
+    <div class="loader-photo" aria-hidden="true"></div>
+    <div class="loader-grid" aria-hidden="true"></div>
+    <div class="loader-dark" aria-hidden="true"></div>
+    <div class="loader-top">
+      <div class="brand brand--racing"><span class="brand-mark">T<span class="brand-dot">.</span></span><span class="brand-word">TIME</span></div>
+      <span class="loader-top-right">THE MOMENT IS COMING <span class="live-pulse"></span></span>
+    </div>
+    <div class="loader-left-label">PRECISION <span>/</span> PERFORMANCE <span>/</span> TIME</div>
+    <div class="loader-content">
+      <div class="loader-eyebrow"><span class="red-dash"></span> RACE CONTROL <span class="loader-code">// 001</span></div>
+      <div class="loader-title">LIGHTS OUT<span>.</span></div>
+      <div class="loader-subtitle">AND AWAY WE GO.</div>
+      <div class="race-console">
+        <div class="race-console-top"><span>START SEQUENCE</span><span id="loadMessage">ALL SYSTEMS READY</span></div>
+        <div class="starting-lights" aria-label="Five starting lights switching off">
+          <span class="light-unit"><i></i><i></i></span><span class="light-unit"><i></i><i></i></span><span class="light-unit"><i></i><i></i></span><span class="light-unit"><i></i><i></i></span><span class="light-unit"><i></i><i></i></span>
+        </div>
+        <div class="race-track"><div class="race-track-progress" id="raceProgress"></div><div class="race-car" id="raceCar" aria-hidden="true"><svg viewBox="0 0 100 42" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 28H90L96 22 87 17H65L59 11H44L37 19H23L17 13H12L17 26H9Z" fill="#e6f3ff"/><path d="M12 27H90L95 22H69L58 17H43L37 24H14Z" fill="#fb3b35"/><path d="M43 17H62L68 23H41Z" fill="#121a2f"/><path d="M10 13H23V17H10Z" fill="#e5eaf1"/><circle cx="30" cy="29" r="10" fill="#0b0d16" stroke="#aab7cc" stroke-width="2"/><circle cx="79" cy="29" r="10" fill="#0b0d16" stroke="#aab7cc" stroke-width="2"/><circle cx="30" cy="29" r="3" fill="#fb353c"/><circle cx="79" cy="29" r="3" fill="#fb353c"/></svg></div></div>
+        <div class="race-console-bottom"><span id="loadPercentage">000%</span><span>GRID → DESTINATION</span><button id="skipLoader" class="skip-button" type="button">SKIP INTRO <span>↗</span></button></div>
+      </div>
+    </div>
+    <div class="loader-quote"><div class="quote-line"></div><div><p>“Don't give up, just keep pushing.<br>You never know what's gonna happen until the last corner of the last lap.”</p><span>— MAX VERSTAPPEN</span></div></div>
+    <div class="loader-edge">33 <span>///</span> PUSH BEYOND THE LIMIT</div>
+  </div>
+
+  <div id="app" class="app app--loading">
+    <div class="universe" aria-hidden="true"><div class="timeline-texture"></div><canvas id="timelineCanvas"></canvas><div class="universe-grain"></div><div class="universe-vignette"></div></div>
+    <header class="site-header">
+      <a href="#" id="homeBrand" class="brand brand--main" aria-label="TIME home"><span class="brand-mark">T<span class="brand-dot">.</span></span><span class="brand-word">TIME</span></a>
+      <div class="header-divider"></div><div class="header-product">THE ART OF COUNTING DOWN <small>PERSONAL TIMEKEEPING SYSTEM</small></div>
+      <div class="header-spacer"></div>
+      <div class="live-clock"><span class="clock-status"><i></i> LIVE / LOCAL</span><strong id="liveTime">--:--:--</strong><small id="liveDate">-- --- ----</small></div>
+      <button class="btn btn--primary header-add" id="addClockTop" type="button"><span class="plus-icon">+</span> NEW COUNTDOWN</button>
+    </header>
+    <main class="dashboard">
+      <section class="account-panel" aria-label="Google account">
+        <div><strong id="accountName">Your private timeline</strong><p id="accountEmail">Sign in to save your countdowns across devices.</p><p id="authStatus" role="status" aria-live="polite">Preparing sign-in…</p></div>
+        <div><button id="signIn" class="btn btn--outline" type="button" disabled>Continue with Google</button><button id="signOut" class="btn btn--outline" type="button" hidden>Sign out</button></div>
+      </section>
+      <div class="dashboard-intro"><div class="section-kicker"><span class="cyan-line"></span> YOUR PERSONAL EVENT HORIZON <span class="kicker-id">// 01</span></div><h1>TIME <span class="title-outline">IS</span><br><span class="glow-text">EVERYTHING.</span></h1><p>Every milestone. Every finish line. Every moment worth waiting for.<br>Keep your eyes on what comes next.</p></div>
+      <div class="dashboard-toolbar"><div><span class="section-index">01 / YOUR COUNTDOWNS</span><h2>Upcoming moments <span id="countBadge" class="count-badge">00</span></h2></div><div class="toolbar-right"><span class="orbit-indicator"><i></i> TIMELINE ACTIVE</span><button id="addClockGrid" class="btn btn--outline" type="button"><span>＋</span> CREATE NEW</button></div></div>
+      <div id="clockGrid" class="clock-grid" aria-live="polite"></div>
+      <div class="dashboard-foot"><span>TIME DOESN'T STOP. NEITHER DO YOU.</span><div class="foot-actions"><button id="exportBackup" type="button">↓ EXPORT BACKUP</button><button id="importBackup" type="button">↑ IMPORT BACKUP</button><input id="importFile" type="file" accept="application/json,.json" hidden></div><span>EST. IN THE PRESENT <span class="footer-star">✦</span></span></div>
+    </main>
+    <div class="bottom-telemetry" aria-hidden="true"><div class="tel-line"></div><span>INFINITE POSSIBILITIES / FINITE TIME</span><div class="tel-line"></div></div>
+  </div>
+
+  <section id="detailView" class="detail-view" hidden aria-label="Countdown immersive view">
+    <div class="detail-scene" aria-hidden="true"><div class="krishna-aura"></div><div class="krishna-portrait"></div><canvas id="divineCanvas"></canvas><div class="detail-vignette"></div></div>
+    <header class="detail-header"><div class="brand brand--detail"><span class="brand-mark">T<span class="brand-dot">.</span></span><span class="brand-word">TIME</span></div><div class="detail-top-label">BEYOND THE HORIZON <span>✦</span> INTO THE COSMOS</div><button id="exitDetail" class="detail-exit" type="button" aria-label="Exit immersive countdown"><span>EXIT COUNTDOWN</span><span class="exit-x">×</span></button></header>
+    <div class="detail-main"><div class="detail-above"><div class="detail-eyebrow"><span></span> ONE MOMENT IN INFINITY <span></span></div><h2 id="detailName">YOUR MOMENT</h2></div><div class="hero-clock" id="heroClock"><div class="hero-clock-head"><span>TIME / COUNTDOWN</span><span id="detailStatus"><i class="status-dot"></i> IN PROGRESS</span></div><div class="hero-time"><div class="hero-time-piece"><strong id="detailDays">000</strong><span>DAYS</span></div><div class="hero-sep">:</div><div class="hero-time-piece"><strong id="detailHours">00</strong><span>HOURS</span></div><div class="hero-sep">:</div><div class="hero-time-piece"><strong id="detailMinutes">00</strong><span>MINUTES</span></div></div><div class="hero-clock-foot"><span id="detailTarget">TARGET / —</span><span id="detailPercent">TIME IN MOTION</span></div><div class="hero-progress"><div id="heroProgressFill"></div></div></div><p class="detail-mantra">Every moment is a new beginning.</p></div>
+    <div class="detail-footer"><div><span class="cosmic-symbol">✦</span> THE UNIVERSE MOVES. SO DO YOU.</div><div class="detail-controls"><button id="detailEdit" type="button">✎ EDIT COUNTDOWN</button><span>ESC TO RETURN</span></div></div>
+  </section>
+
+  <div id="formOverlay" class="modal-overlay" hidden>
+    <div class="modal-backdrop" data-close="form"></div>
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="formTitle">
+      <div class="modal-heading"><div><div class="modal-eyebrow">TIMELINE / EVENT EDITOR</div><h2 id="formTitle">Create countdown</h2></div><button class="modal-x" id="closeForm" type="button" aria-label="Close">×</button></div>
+      <form id="clockForm" novalidate><label for="clockName">EVENT NAME <span>01</span></label><input id="clockName" name="name" type="text" autocomplete="off" maxlength="65" placeholder="e.g. DAA End Semester Exam" required><div class="input-hint">Give your moment a name worth remembering.</div><label for="clockDeadline">TARGET DATE &amp; TIME <span>02</span></label><input id="clockDeadline" name="deadline" type="datetime-local" required><div class="input-hint">Countdowns use your device's local time zone.</div><div id="formError" class="form-error" role="alert" hidden></div><div class="modal-actions"><button id="cancelForm" class="btn btn--muted" type="button">CANCEL</button><button id="submitClock" class="btn btn--primary" type="submit">CREATE COUNTDOWN <span>↗</span></button></div></form>
+      <div class="modal-foot">YOUR FUTURE, ONE MOMENT AT A TIME.</div>
+    </section>
+  </div>
+  <div id="deleteOverlay" class="modal-overlay" hidden><div class="modal-backdrop" data-close="delete"></div><section class="modal modal--delete" role="alertdialog" aria-modal="true" aria-labelledby="deleteTitle" aria-describedby="deleteMessage"><div class="modal-heading"><div><div class="modal-eyebrow modal-eyebrow--danger">IRREVERSIBLE ACTION / CONFIRMATION</div><h2 id="deleteTitle">Erase this moment?</h2></div><button id="closeDelete" class="modal-x" type="button" aria-label="Close">×</button></div><p id="deleteMessage" class="delete-message">This countdown will be permanently removed from this browser.</p><div class="modal-actions"><button id="cancelDelete" class="btn btn--muted" type="button">KEEP COUNTDOWN</button><button id="confirmDelete" class="btn btn--danger" type="button">YES, DELETE <span>⌫</span></button></div></section></div>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <script src="firebase-config.js" defer></script>
+  <script src="app.js" defer></script>
+  <script src="auth.js" defer></script>
+  
+</body>
+</html>
